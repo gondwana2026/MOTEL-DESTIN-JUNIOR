@@ -1,0 +1,46 @@
+{
+  "name": "Motel Destin — De Léro",
+  "short_name": "Motel Destin",
+  "description": "Gestion hôtelière et stocks — Motel Destin de Léro",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a237e",
+  "theme_color": "#1a237e",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%231a237e'/><text y='130' x='96' text-anchor='middle' font-size='110'>🍸</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%231a237e'/><text y='360' x='256' text-anchor='middle' font-size='300'>🍸</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Ventes",
+      "short_name": "Ventes",
+      "url": "/?tab=2",
+      "description": "Enregistrer une vente"
+    },
+    {
+      "name": "Hébergement",
+      "short_name": "Chambres",
+      "url": "/?tab=9",
+      "description": "Gérer les chambres"
+    },
+    {
+      "name": "Caisse",
+      "short_name": "Caisse",
+      "url": "/?tab=7",
+      "description": "Voir la caisse"
+    }
+  ]
+}
