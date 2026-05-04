@@ -54,6 +54,333 @@
       --dark:        #1a237e;
     }
 
+
+    /* ══ AUTH OVERLAY TABS ══ */
+    .auth-tab-strip {
+      display: flex; border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15); margin-bottom: 20px;
+    }
+    .auth-tab-btn {
+      flex: 1; padding: 10px; border: none; font-weight: 800;
+      font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+      font-size: 12px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px;
+    }
+    .auth-tab-btn.active { background: var(--gold); color: var(--blue); }
+    .auth-tab-btn.inactive { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+    .auth-field {
+      width: 100%; padding: 13px 14px; border-radius: 12px;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #fff; font-size: 14px; font-family: 'Inter', system-ui, sans-serif;
+      margin-bottom: 10px; outline: none; transition: border-color 0.2s;
+    }
+    .auth-field::placeholder { color: rgba(255,255,255,0.35); }
+    .auth-field:focus { border-color: var(--gold); }
+    .auth-submit-btn {
+      width: 100%; padding: 14px; border-radius: 14px;
+      background: var(--gold); border: none; color: var(--blue);
+      font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+      font-size: 14px; font-weight: 900; cursor: pointer; transition: opacity 0.15s;
+    }
+    .auth-submit-btn:active { opacity: 0.85; }
+    .auth-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .auth-error { color: #ff6464; font-size: 12px; min-height: 18px; margin-bottom: 8px; font-weight: 600; }
+    .auth-user-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12); border-radius: 8px;
+      padding: 4px 8px; margin-left: 6px;
+    }
+    .auth-user-name { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); }
+
+    /* ══ BAR MODULE ══ */
+    .bar-header {
+      background: linear-gradient(135deg, #1b1b2f 0%, #162032 100%);
+      border-radius: 18px; padding: 18px 20px; margin-bottom: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .bar-title {
+      font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+      font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 2px;
+    }
+    .bar-sub { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 600; }
+    .bar-kpi-row {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px;
+    }
+    .bar-kpi {
+      background: #fff; border-radius: 14px; padding: 12px 10px; text-align: center;
+      border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
+    }
+    .bar-kpi-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
+    .bar-kpi-val { font-family: 'DM Sans','Inter',system-ui,sans-serif; font-size: 22px; font-weight: 900; margin-top: 4px; color: var(--blue); }
+
+    /* ── Bar article grid ── */
+    .bar-article-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px;
+    }
+    .bar-article-card {
+      background: #fff; border-radius: 14px; padding: 14px 12px;
+      border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
+      cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .bar-article-card:active { transform: scale(0.97); }
+    .bar-article-card.low-bar { border-left: 3px solid var(--gold); }
+    .bar-article-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(26,35,126,0.0); transition: background 0.15s;
+    }
+    .bar-article-card:hover::after { background: rgba(26,35,126,0.04); }
+    .bar-article-card.in-order { border-color: var(--blue); box-shadow: 0 0 0 2px rgba(26,35,126,0.2); }
+    .bar-article-name { font-weight: 800; font-size: 13px; color: var(--blue); line-height: 1.2; }
+    .bar-article-cat { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+    .bar-article-price { font-family: 'DM Sans','Inter',system-ui,sans-serif; font-size: 15px; font-weight: 900; color: var(--gold-text); margin-top: 4px; }
+    .bar-article-stock { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .bar-article-badge {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--blue); color: #fff;
+      border-radius: 10px; min-width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; padding: 0 4px;
+    }
+
+    /* ── Bar Order Panel ── */
+    .bar-order-panel {
+      background: #fff; border-radius: 18px; padding: 16px;
+      border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
+      margin-bottom: 14px; position: sticky; top: 74px; z-index: 10;
+    }
+    .bar-order-title {
+      font-size: 10px; font-weight: 800; color: var(--blue);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .bar-order-empty {
+      text-align: center; padding: 14px 0; color: var(--text-muted);
+      font-size: 12px; font-weight: 600;
+    }
+    .bar-order-item {
+      display: flex; align-items: center; gap: 8px; padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .bar-order-item:last-of-type { border-bottom: none; }
+    .bar-order-item-name { flex: 1; font-size: 13px; font-weight: 700; color: var(--blue); }
+    .bar-order-qty-ctrl { display: flex; align-items: center; gap: 4px; }
+    .bar-qty-btn {
+      width: 26px; height: 26px; border-radius: 8px; border: 1.5px solid var(--border);
+      background: var(--bg); color: var(--blue); font-size: 15px; font-weight: 900;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.1s;
+    }
+    .bar-qty-btn:active { transform: scale(0.92); }
+    .bar-qty-num { font-family: 'DM Sans','Inter',system-ui,sans-serif; font-size: 14px; font-weight: 900; min-width: 22px; text-align: center; }
+    .bar-order-item-subtotal { font-size: 12px; font-weight: 800; color: var(--gold-text); white-space: nowrap; }
+    .bar-order-total-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0 0; margin-top: 6px; border-top: 2px solid var(--blue);
+    }
+    .bar-order-total-label { font-size: 12px; font-weight: 800; color: var(--blue); }
+    .bar-order-total-val { font-family: 'DM Sans','Inter',system-ui,sans-serif; font-size: 20px; font-weight: 900; color: var(--gold-text); }
+    .bar-confirm-btn {
+      width: 100%; padding: 13px; margin-top: 10px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue3) 100%);
+      border: none; color: #fff;
+      font-family: 'DM Sans','Inter',system-ui,sans-serif;
+      font-size: 14px; font-weight: 900; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26,35,126,0.3);
+      transition: all 0.15s;
+    }
+    .bar-confirm-btn:active { transform: scale(0.98); }
+    .bar-confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── Bar commande history ── */
+    .bar-cmd-item {
+      background: #fff; border-radius: 14px; padding: 12px 14px; margin-bottom: 8px;
+      border: 1.5px solid var(--border); box-shadow: var(--card-shadow);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .bar-cmd-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .bar-cmd-body { flex: 1; min-width: 0; }
+    .bar-cmd-items-text { font-size: 12px; color: var(--text-body); font-weight: 600; line-height: 1.4; }
+    .bar-cmd-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .bar-cmd-total { font-family: 'DM Sans','Inter',system-ui,sans-serif; font-size: 16px; font-weight: 900; color: var(--gold-text); white-space: nowrap; }
+
+    /* ── Bar Article Form ── */
+    .bar-form-card {
+      background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 14px;
+      border: 1.5px dashed var(--blue-mid); box-shadow: var(--card-shadow);
+    }
+    .bar-form-title {
+      font-family: 'DM Sans','Inter',system-ui,sans-serif;
+      font-size: 14px; font-weight: 900; color: var(--blue); margin-bottom: 12px;
+    }
+    .bar-form-confirm {
+      width: 100%; padding: 13px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue3) 100%);
+      border: none; color: #fff;
+      font-family: 'DM Sans','Inter',system-ui,sans-serif;
+      font-size: 13px; font-weight: 900; cursor: pointer; margin-top: 6px;
+    }
+
+
+    /* ══════════════════════════════════════════════════
+       THÈME SOMBRE — Obsidian / Or (HABATECH)
+       Activé via : <html data-theme="dark">
+    ══════════════════════════════════════════════════ */
+    [data-theme="dark"] {
+      color-scheme: dark;
+
+      /* Surfaces */
+      --bg:          #0c0e1a;
+      --white:       #141728;
+
+      /* Textes */
+      --text:        #C9A84C;
+      --text-body:   #ccc9df;
+      --text-muted:  #7a788f;
+      --text-dim:    #7a788f;
+      --text-bright: #f0eeff;
+
+      /* Bordures & ombres */
+      --border:      rgba(201,168,76,0.14);
+      --card-shadow: 0 2px 16px rgba(0,0,0,0.55);
+      --card-shadow-hover: 0 6px 28px rgba(0,0,0,0.65);
+
+      /* Bleu → tons dorés pour surfaces secondaires */
+      --blue-light:  rgba(201,168,76,0.08);
+      --blue-mid:    rgba(201,168,76,0.18);
+
+      /* Vert & Rouge — atténués */
+      --green-light: rgba(46,125,50,0.18);
+      --red-light:   rgba(198,40,40,0.18);
+
+      /* Or */
+      --gold-dim:    rgba(201,168,76,0.09);
+      --gold-text:   #C9A84C;
+    }
+
+    /* Éléments hardcodés à surcharger */
+    [data-theme="dark"] .panel,
+    [data-theme="dark"] .stat-card,
+    [data-theme="dark"] .product-card,
+    [data-theme="dark"] .vente-item,
+    [data-theme="dark"] .mag-card,
+    [data-theme="dark"] .achat-item,
+    [data-theme="dark"] .caisse-item,
+    [data-theme="dark"] .depot-item,
+    [data-theme="dark"] .chambre-card,
+    [data-theme="dark"] .sejour-item,
+    [data-theme="dark"] .mag-stat-box,
+    [data-theme="dark"] .bar-kpi,
+    [data-theme="dark"] .bar-article-card,
+    [data-theme="dark"] .bar-order-panel,
+    [data-theme="dark"] .bar-cmd-item,
+    [data-theme="dark"] .bar-form-card,
+    [data-theme="dark"] .chambre-form-card,
+    [data-theme="dark"] .rapport-preview,
+    [data-theme="dark"] .modal-box {
+      background: var(--white) !important;
+      border-color: var(--border) !important;
+      color: var(--text-body);
+    }
+    [data-theme="dark"] .page-title,
+    [data-theme="dark"] .section-title,
+    [data-theme="dark"] .mag-name,
+    [data-theme="dark"] .pc-name,
+    [data-theme="dark"] .vente-name,
+    [data-theme="dark"] .chambre-num-badge,
+    [data-theme="dark"] .modal-title,
+    [data-theme="dark"] .modal-label {
+      color: #C9A84C !important;
+    }
+    [data-theme="dark"] .modal-field {
+      background: rgba(201,168,76,0.05);
+      border-color: rgba(201,168,76,0.2);
+      color: var(--text-body);
+    }
+    [data-theme="dark"] .modal-field:focus { border-color: #C9A84C; }
+    [data-theme="dark"] .cat-pill {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.15);
+      color: #C9A84C;
+    }
+    [data-theme="dark"] .cat-pill.active {
+      background: #C9A84C;
+      color: #0c0e1a;
+      border-color: #C9A84C;
+    }
+    [data-theme="dark"] .rapport-kpi,
+    [data-theme="dark"] .rapport-type-btn {
+      background: rgba(201,168,76,0.06) !important;
+      border-color: rgba(201,168,76,0.15) !important;
+    }
+    [data-theme="dark"] .rapport-type-btn.active {
+      background: rgba(201,168,76,0.14) !important;
+      border-color: #C9A84C !important;
+    }
+    [data-theme="dark"] body { background: var(--bg); }
+    [data-theme="dark"] .app { background: var(--bg); }
+    [data-theme="dark"] .content { background: var(--bg); }
+    [data-theme="dark"] .bar-qty-btn {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.2);
+      color: #C9A84C;
+    }
+    [data-theme="dark"] .btn-sm { background: rgba(201,168,76,0.1) !important; color: #C9A84C !important; }
+    [data-theme="dark"] .pc-bar-bg { background: rgba(201,168,76,0.1); }
+    [data-theme="dark"] select option { background: #141728; color: #ccc9df; }
+    [data-theme="dark"] .toast { background: #1e2238; border: 1px solid rgba(201,168,76,0.3); }
+    [data-theme="dark"] .offline-banner { background: #7f1d1d; }
+
+    /* Toggle button */
+    .theme-toggle-btn {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 8px; width: 32px; height: 32px;
+      color: #fff; font-size: 15px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .theme-toggle-btn:hover { background: rgba(255,255,255,0.22); }
+
+    /* ══ MOBILE RESPONSIVE AMÉLIORÉ ══ */
+    @media (max-width: 400px) {
+      .bar-article-grid { grid-template-columns: 1fr !important; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .bar-kpi-row { grid-template-columns: repeat(3,1fr); }
+      .rapport-kpi-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+      .modal-box {
+        max-height: 90vh;
+        overflow-y: auto;
+        margin: 16px;
+        width: calc(100vw - 32px) !important;
+      }
+      .modal-grid { grid-template-columns: 1fr !important; }
+      .bar-order-panel { position: relative; top: 0; }
+      .ca-val { font-size: 22px !important; }
+      .stat-val { font-size: 26px !important; }
+      .rapport-export-btns { flex-direction: column; }
+      .chambre-kpi-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .mag-stats { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 360px) {
+      .header { padding: 10px 12px; }
+      .logo-title { font-size: 11px; }
+      .nav-btn { font-size: 13px; padding: 11px 12px; }
+    }
+
+
+    /* ══ FAILSAFE CSS : overlay toujours fermé après 10s ══ */
+    #loading-overlay {
+      animation: cssForceHide 0.01s 10s forwards;
+    }
+    @keyframes cssForceHide {
+      to { opacity: 0; pointer-events: none; visibility: hidden; }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -1289,26 +1616,56 @@
       .nav {
         grid-column: 1; grid-row: 2 / 4;
         flex-direction: column;
-        overflow-x: visible; overflow-y: auto;
-        border-right: 1px solid var(--border); border-bottom: none;
+        overflow-x: hidden; overflow-y: auto;
+        border-right: none; border-bottom: none;
         position: sticky; top: 68px; height: calc(100vh - 68px);
-        max-width: none; width: 240px;
+        max-width: none; width: 220px;
         left: auto; right: auto; bottom: auto;
         transform: none !important;
-        padding: 16px 0 16px;
-        box-shadow: none;
-        background: var(--white);
+        padding: 12px 0 24px;
+        box-shadow: 3px 0 20px rgba(0,0,0,0.15);
+        background: var(--blue);
         z-index: 10;
         scrollbar-width: thin;
-        scrollbar-color: var(--blue-mid) transparent;
+        scrollbar-color: rgba(255,255,255,0.2) transparent;
+      }
+      /* Section labels dans la sidebar desktop */
+      .nav > .drawer-section-label {
+        display: block;
+        padding: 14px 18px 4px;
+        font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+        color: rgba(255,255,255,0.3); text-transform: uppercase;
       }
       .nav-btn {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255,255,255,0.72);
         font-size: 13px;
-        padding: 12px 16px;
+        padding: 11px 16px;
+        border-radius: 0 12px 12px 0;
+        margin-right: 10px;
+        white-space: nowrap;
+      }
+      .nav-btn .nb-label { 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
       }
       .nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-      .nav-btn.active { background: rgba(255,255,255,0.15); color: var(--gold); border-left-color: var(--gold); }
+      .nav-btn.active { 
+        background: rgba(255,255,255,0.15); 
+        color: var(--gold); 
+        border-left-color: var(--gold);
+        font-weight: 700;
+      }
+      /* Dark theme sidebar */
+      [data-theme="dark"] .nav {
+        background: #0d1020;
+        box-shadow: 3px 0 20px rgba(0,0,0,0.4);
+      }
+      [data-theme="dark"] .nav-btn.active {
+        background: rgba(201,168,76,0.12);
+        color: #C9A84C;
+        border-left-color: #C9A84C;
+      }
       .content { grid-column: 2; grid-row: 2 / 4; padding: 28px 36px 80px; }
       .page-title { font-size: 26px !important; font-weight: 800 !important; margin-bottom: 20px !important; }
       .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -1668,54 +2025,66 @@
   <div class="loading-spinner"></div>
 </div>
 
-<!-- ══ PIN OVERLAY ══ -->
+<!-- ══ AUTH OVERLAY ══ -->
 <div class="pin-overlay hidden" id="pin-overlay">
-  <div class="pin-box">
+  <div class="pin-box" style="width:320px;max-width:95vw;">
     <div class="pin-logo">🍸</div>
     <div class="pin-title">Motel Destin</div>
-    <div class="pin-sub" id="pin-sub">Choisissez votre profil</div>
 
-    <!-- Sélection rôle -->
-    <div class="pin-roles" id="pin-roles">
-      <button class="pin-role-btn admin"   onclick="selectRole('admin')">  👑Admin</button>
-      <button class="pin-role-btn gerant"  onclick="selectRole('gerant')"> 🏨PDG</button>
-      <button class="pin-role-btn DG" onclick="selectRole('DG')">🍸DG</button>
+    <!-- Tabs: Cloud / Local -->
+    <div class="auth-tab-strip">
+      <button class="auth-tab-btn active" id="auth-tab-cloud" onclick="showAuthTab('cloud')">☁️ Connexion Cloud</button>
+      <button class="auth-tab-btn inactive" id="auth-tab-pin" onclick="showAuthTab('pin')">🔑 Accès Local</button>
     </div>
 
-    <!-- Saisie PIN -->
-    <div id="pin-entry" style="display:none;">
-      <div class="pin-dots">
-        <div class="pin-dot" id="dot-0"></div>
-        <div class="pin-dot" id="dot-1"></div>
-        <div class="pin-dot" id="dot-2"></div>
-        <div class="pin-dot" id="dot-3"></div>
-      </div>
-      <div class="pin-error" id="pin-error"></div>
-      <div class="pin-pad">
-        <button class="pin-key" onclick="pinKey('1')">1</button>
-        <button class="pin-key" onclick="pinKey('2')">2</button>
-        <button class="pin-key" onclick="pinKey('3')">3</button>
-        <button class="pin-key" onclick="pinKey('4')">4</button>
-        <button class="pin-key" onclick="pinKey('5')">5</button>
-        <button class="pin-key" onclick="pinKey('6')">6</button>
-        <button class="pin-key" onclick="pinKey('7')">7</button>
-        <button class="pin-key" onclick="pinKey('8')">8</button>
-        <button class="pin-key" onclick="pinKey('9')">9</button>
-        <button class="pin-key pin-back" onclick="selectRole(null)">←</button>
-        <button class="pin-key" onclick="pinKey('0')">0</button>
-        <button class="pin-key pin-del" onclick="pinDel()">⌫</button>
+    <!-- ── Cloud Login Panel ── -->
+    <div id="auth-cloud-panel">
+      <div class="pin-sub" style="margin-bottom:14px;">Connectez-vous à votre compte</div>
+      <input class="auth-field" id="auth-email" type="email" placeholder="📧 Email" autocomplete="email">
+      <input class="auth-field" id="auth-password" type="password" placeholder="🔒 Mot de passe" autocomplete="current-password">
+      <div class="auth-error" id="auth-error"></div>
+      <button class="auth-submit-btn" id="auth-submit-btn" onclick="loginWithSupabase()">Se connecter →</button>
+      <div style="text-align:center;margin-top:12px;">
+        <button onclick="showForgotPassword()" style="background:none;border:none;color:rgba(255,255,255,0.45);font-size:11px;cursor:pointer;font-weight:600;">Mot de passe oublié ?</button>
       </div>
     </div>
 
-    <!-- Accès direct (pas de PIN configuré) -->
-    <div id="pin-setup-hint" style="display:none; margin-top:8px;">
-      <p style="color:rgba(255,255,255,0.6);font-size:11px;margin-bottom:14px;">Aucun PIN configuré — accès direct</p>
-      <button onclick="loginDirect()" style="width:100%;padding:14px;border-radius:14px;background:var(--gold);border:none;color:var(--blue);font-family:'DM Sans','Inter',system-ui,sans-serif;font-size:14px;font-weight:900;cursor:pointer;">
-        Entrer →
-      </button>
-      <button onclick="selectRole(null)" style="width:100%;margin-top:10px;padding:11px;border-radius:14px;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:700;cursor:pointer;">
-        ← Retour
-      </button>
+    <!-- ── Local PIN Panel ── -->
+    <div id="auth-pin-panel" style="display:none;">
+      <div class="pin-sub" id="pin-sub">Choisissez votre profil</div>
+      <div class="pin-roles" id="pin-roles">
+        <button class="pin-role-btn admin"   onclick="selectRole('admin')">👑 Admin</button>
+        <button class="pin-role-btn gerant"  onclick="selectRole('gerant')">🏨 PDG</button>
+        <button class="pin-role-btn DG" onclick="selectRole('DG')">🍸 DG</button>
+      </div>
+      <div id="pin-entry" style="display:none;">
+        <div class="pin-dots">
+          <div class="pin-dot" id="dot-0"></div>
+          <div class="pin-dot" id="dot-1"></div>
+          <div class="pin-dot" id="dot-2"></div>
+          <div class="pin-dot" id="dot-3"></div>
+        </div>
+        <div class="pin-error" id="pin-error"></div>
+        <div class="pin-pad">
+          <button class="pin-key" onclick="pinKey('1')">1</button>
+          <button class="pin-key" onclick="pinKey('2')">2</button>
+          <button class="pin-key" onclick="pinKey('3')">3</button>
+          <button class="pin-key" onclick="pinKey('4')">4</button>
+          <button class="pin-key" onclick="pinKey('5')">5</button>
+          <button class="pin-key" onclick="pinKey('6')">6</button>
+          <button class="pin-key" onclick="pinKey('7')">7</button>
+          <button class="pin-key" onclick="pinKey('8')">8</button>
+          <button class="pin-key" onclick="pinKey('9')">9</button>
+          <button class="pin-key pin-back" onclick="selectRole(null)">←</button>
+          <button class="pin-key" onclick="pinKey('0')">0</button>
+          <button class="pin-key pin-del" onclick="pinDel()">⌫</button>
+        </div>
+      </div>
+      <div id="pin-setup-hint" style="display:none;margin-top:8px;">
+        <p style="color:rgba(255,255,255,0.6);font-size:11px;margin-bottom:14px;">Aucun PIN configuré — accès direct</p>
+        <button onclick="loginDirect()" style="width:100%;padding:14px;border-radius:14px;background:var(--gold);border:none;color:var(--blue);font-family:'DM Sans','Inter',system-ui,sans-serif;font-size:14px;font-weight:900;cursor:pointer;">Entrer →</button>
+        <button onclick="selectRole(null)" style="width:100%;margin-top:10px;padding:11px;border-radius:14px;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:700;cursor:pointer;">← Retour</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1727,14 +2096,14 @@
     <div class="logo-wrap">
       <div style="width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:10px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;">🍸</div>
       <div>
-        <div class="logo-title">MOTEL DESTIN <span class="v-badge">v10</span></div>
+        <div class="logo-title">MOTEL DESTIN <span class="v-badge">v12</span></div>
         <div class="logo-sub">De Léro · Cloud ☁️</div>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
       <button class="hamburger-btn" onclick="openDrawer()" title="Menu" id="hamburger-btn">☰</button>
       <div class="header-date" id="header-date"></div>
-      <span class="sync-dot" id="sync-dot" title="Synchronisé"></span><button class="lock-btn" onclick="lockApp()" title="Verrouiller">🔒</button>
+      <span class="sync-dot" id="sync-dot" title="Synchronisé"></span><button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Changer le thème">🌙</button><button class="lock-btn" onclick="lockApp()" title="Verrouiller">🔒</button>
     </div>
   </div>
 
@@ -1764,7 +2133,8 @@
     <div class="drawer-section-label">Opérations</div>
     <button class="nav-btn" onclick="switchTab(8)" id="nav-8"><span class="nb-icon">🍶</span><span class="nb-label">Dépôt Boisson</span></button>
     <button class="nav-btn" onclick="switchTab(9)" id="nav-9"><span class="nb-icon">🛏️</span><span class="nb-label">Hébergement</span></button>
-    <div class="drawer-footer">Motel Destin v10</div>
+    <button class="nav-btn" onclick="switchTab(10)" id="nav-10"><span class="nb-icon">🍺</span><span class="nb-label">Bar & Boissons</span></button>
+    <div class="drawer-footer">Motel Destin v12</div>
   </div>
 
   <!-- Nav Sidebar (desktop only) -->
@@ -1779,6 +2149,7 @@
     <button class="nav-btn" onclick="switchTab(7)" id="snav-7"><span class="nb-icon">💵</span><span class="nb-label">Caisse</span></button>
     <button class="nav-btn" onclick="switchTab(8)" id="snav-8"><span class="nb-icon">🍶</span><span class="nb-label">Dépôt</span></button>
     <button class="nav-btn" onclick="switchTab(9)" id="snav-9"><span class="nb-icon">🛏️</span><span class="nb-label">Hébergement</span></button>
+    <button class="nav-btn" onclick="switchTab(10)" id="snav-10"><span class="nb-icon">🍺</span><span class="nb-label">Bar</span></button>
   </nav>
 
   <div class="content">
@@ -2282,6 +2653,147 @@
       <div id="sejour-list"></div>
     </div>
 
+  
+    <!-- ══ TAB 10 : BAR & BOISSONS ══ -->
+    <div id="tab-10" class="tab-pane">
+
+      <!-- Header Banner -->
+      <div class="bar-header">
+        <div>
+          <div class="bar-title">🍺 Bar & Boissons</div>
+          <div class="bar-sub" id="bar-sub-date">Motel Destin — Service Bar</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:900;color:#C9A84C;" id="bar-ca-today">0 GNF</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);font-weight:700;">CA aujourd'hui</div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="bar-kpi-row">
+        <div class="bar-kpi">
+          <div class="bar-kpi-label">Commandes</div>
+          <div class="bar-kpi-val" id="bar-kpi-cmds" style="color:var(--blue);">0</div>
+        </div>
+        <div class="bar-kpi">
+          <div class="bar-kpi-label">Articles</div>
+          <div class="bar-kpi-val" id="bar-kpi-articles" style="color:var(--green);">0</div>
+        </div>
+        <div class="bar-kpi">
+          <div class="bar-kpi-label">Stock bas</div>
+          <div class="bar-kpi-val" id="bar-kpi-low" style="color:var(--gold-text);">0</div>
+        </div>
+      </div>
+
+      <!-- Sous-onglets Bar -->
+      <div class="cat-filters" style="margin-bottom:12px;" id="bar-view-filters">
+        <button class="cat-pill active" onclick="setBarView('pos',this)">🍺 POS Commande</button>
+        <button class="cat-pill" onclick="setBarView('history',this)">🕐 Historique</button>
+        <button class="cat-pill" onclick="setBarView('stock',this)">📦 Articles</button>
+      </div>
+
+      <!-- ── POS VIEW ── -->
+      <div id="bar-view-pos">
+        <!-- Order panel (sticky) -->
+        <div class="bar-order-panel">
+          <div class="bar-order-title">
+            <span>🛒 Commande en cours</span>
+            <button onclick="clearBarOrder()" style="background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;font-weight:700;">Vider</button>
+          </div>
+          <div id="bar-order-items">
+            <div class="bar-order-empty">Sélectionnez des articles ci-dessous</div>
+          </div>
+          <div id="bar-order-footer" style="display:none;">
+            <div class="bar-order-total-row">
+              <span class="bar-order-total-label">Total</span>
+              <span class="bar-order-total-val" id="bar-order-total">0 GNF</span>
+            </div>
+            <select class="modal-field" id="bar-cmd-paiement" style="margin-top:10px;margin-bottom:0;">
+              <option value="especes">💵 Espèces</option>
+              <option value="mobile">📱 Mobile Money</option>
+              <option value="credit">📋 Crédit</option>
+            </select>
+            <button class="bar-confirm-btn" onclick="confirmBarOrder()">✓ Valider la commande</button>
+          </div>
+        </div>
+
+        <!-- Category filter -->
+        <div class="cat-filters" style="margin-bottom:10px;" id="bar-cat-filters"></div>
+
+        <!-- Article grid -->
+        <div class="bar-article-grid" id="bar-article-grid">
+          <div class="empty" style="grid-column:span 2;">Aucun article — ajoutez-en dans l\'onglet Articles</div>
+        </div>
+      </div>
+
+      <!-- ── HISTORY VIEW ── -->
+      <div id="bar-view-history" style="display:none;">
+        <div class="cat-filters" style="margin-bottom:10px;">
+          <button class="cat-pill active" onclick="setBarCmdFilter('today',this)">Aujourd'hui</button>
+          <button class="cat-pill" onclick="setBarCmdFilter('week',this)">7 jours</button>
+          <button class="cat-pill" onclick="setBarCmdFilter('all',this)">Tout</button>
+        </div>
+        <div id="bar-cmd-list">
+          <div class="empty">Aucune commande enregistrée</div>
+        </div>
+      </div>
+
+      <!-- ── STOCK/ARTICLES VIEW ── -->
+      <div id="bar-view-stock" style="display:none;">
+        <div class="section-title">Articles du bar</div>
+        <div id="bar-stock-list" style="margin-bottom:16px;"></div>
+
+        <!-- Formulaire ajout/édition article -->
+        <div class="bar-form-card" id="bar-art-form">
+          <div class="bar-form-title" id="bar-art-form-title">✚ Nouvel article</div>
+          <input type="hidden" id="bar-art-edit-id">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label class="modal-label">Nom *</label>
+              <input class="modal-field" id="bar-art-name" placeholder="Ex: Flag Beer" style="margin-bottom:0;">
+            </div>
+            <div>
+              <label class="modal-label">Catégorie</label>
+              <select class="modal-field" id="bar-art-cat" style="margin-bottom:0;">
+                <option value="Bières">🍺 Bières</option>
+                <option value="Softs">🥤 Softs</option>
+                <option value="Alcools">🥃 Alcools</option>
+                <option value="Eaux">💧 Eaux</option>
+                <option value="Jus">🧃 Jus</option>
+                <option value="Cocktails">🍹 Cocktails</option>
+                <option value="Autre">📦 Autre</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;">
+            <div>
+              <label class="modal-label">Prix (GNF) *</label>
+              <input class="modal-field" id="bar-art-price" type="number" min="0" placeholder="Ex: 15000" style="margin-bottom:0;">
+            </div>
+            <div>
+              <label class="modal-label">Stock</label>
+              <input class="modal-field" id="bar-art-stock" type="number" min="0" placeholder="Ex: 24" style="margin-bottom:0;">
+            </div>
+            <div>
+              <label class="modal-label">Unité</label>
+              <input class="modal-field" id="bar-art-unit" placeholder="bouteille" style="margin-bottom:0;">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+            <button class="bar-form-confirm" onclick="saveBarArticle()">✓ Enregistrer</button>
+            <button onclick="cancelBarArticleEdit()" style="padding:13px;background:var(--blue-light);border:1.5px solid var(--blue-mid);border-radius:12px;color:var(--blue3);font-family:'DM Sans','Inter',system-ui,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">Annuler</button>
+          </div>
+        </div>
+
+        <!-- Export -->
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="btn-export btn-export-pdf" onclick="exportBarPDF()" style="flex:1;">📄 Export PDF Bar</button>
+          <button class="btn-export btn-export-csv" onclick="exportBarCSV()" style="flex:1;">📋 CSV</button>
+        </div>
+      </div>
+
+    </div><!-- /tab-10 -->
+
   </div><!-- /content -->
 
 
@@ -2648,6 +3160,16 @@
             <span class="rci-label">Caisse</span>
             <div class="rci-check"></div>
           </div>
+          <div class="rapport-check-item checked" id="rincl-bar" onclick="toggleRapportInclude('bar')">
+            
+            <span class="rci-label">Bar</span>
+            <div class="rci-check"></div>
+          </div>
+          <div class="rapport-check-item checked" id="rincl-hebergement" onclick="toggleRapportInclude('hebergement')">
+            
+            <span class="rci-label">Hébergement</span>
+            <div class="rci-check"></div>
+          </div>
         </div>
       </div>
 
@@ -2680,7 +3202,12 @@
 const SUPABASE_URL = 'https://hjnqcpwsyskrqybkjadr.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqbnFjcHdzeXNrcnF5YmtqYWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MjkzNDIsImV4cCI6MjA5MzMwNTM0Mn0.dGVGv6OsOtym_jXvUZ2M4NSIQV19DzQBPZp288Cc1HE';
 
-const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let _sb = null;
+try {
+  if (typeof supabase !== 'undefined') {
+    _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+} catch(e) { console.warn('[Supabase] SDK non disponible:', e.message); }
 
 // ── Gestion d'erreurs ──
 function sbErr(err, ctx) {
@@ -2738,6 +3265,16 @@ const toDb = {
     date_arrivee: s.dateArrivee, date_depart: s.dateDepart,
     nuits: s.nuits || 0, tarif: s.tarif || 0, montant: s.montant || 0,
     mode_paiement: s.modePaiement || null, note: s.note || null
+  }),
+  barArticle: a => ({
+    id: a.id, name: a.name, category: a.category || 'Bières',
+    price: a.price || 0, stock: a.stock || 0, unit: a.unit || 'bouteille'
+  }),
+  barCommande: c => ({
+    id: c.id, ts: c._ts || Date.now(), date_str: c.date || '',
+    items: JSON.stringify(c.items || []), total: c.total || 0,
+    mode_paiement: c.modePaiement || 'especes',
+    note: c.note || null, served_by: c.servedBy || null
   })
 };
 
@@ -2779,6 +3316,16 @@ const fromDb = {
     dateArrivee: r.date_arrivee, dateDepart: r.date_depart,
     nuits: r.nuits, tarif: r.tarif, montant: r.montant,
     modePaiement: r.mode_paiement, note: r.note
+  }),
+  barArticle: r => ({
+    id: r.id, name: r.name, category: r.category,
+    price: r.price, stock: r.stock, unit: r.unit
+  }),
+  barCommande: r => ({
+    id: r.id, _ts: r.ts, date: r.date_str,
+    items: typeof r.items === 'string' ? JSON.parse(r.items || '[]') : (r.items || []),
+    total: r.total, modePaiement: r.mode_paiement,
+    note: r.note, servedBy: r.served_by
   })
 };
 
@@ -2786,7 +3333,7 @@ const fromDb = {
 //  SAUVEGARDE SUPABASE
 // ════════════════════════════════════════════════════════════════
 async function _upsert(table, rows, mapper) {
-  if (!rows || !rows.length) return;
+  if (!_sb || !rows || !rows.length) return;
   const { error } = await _sb.from(table).upsert(rows.map(mapper), { onConflict: 'id' });
   if (error) sbErr(error, 'upsert ' + table);
 }
@@ -2820,6 +3367,8 @@ function saveAll() {
   LS.set('depots',     depots);
   LS.set('chambres',   chambres);
   LS.set('sejours',    sejours);
+  LS.set('barArticles',  barArticles);
+  LS.set('barCommandes', barCommandes);
   // Marquer comme non-synchronisé
   LS.set('pendingSync', true);
   // 2. Sync Supabase si online
@@ -2838,9 +3387,12 @@ function loadAll() {
   depots     = LS.get('depots',     []);
   chambres   = LS.get('chambres',   []);
   sejours    = LS.get('sejours',    []);
+  barArticles  = LS.get('barArticles',  []);
+  barCommandes = LS.get('barCommandes', []);
 }
 
 async function _syncSupabase() {
+  if (!_sb) return;
   const dot = document.getElementById('sync-dot');
   if (dot) dot.className = 'sync-dot syncing';
   try {
@@ -2852,6 +3404,8 @@ async function _syncSupabase() {
       _upsert('depots',     depots,     toDb.depot),
       _upsert('chambres',   chambres,   toDb.chambre),
       _upsert('sejours',    sejours,    toDb.sejour),
+      _upsert('bar_articles',  barArticles,  toDb.barArticle),
+      _upsert('bar_commandes', barCommandes, toDb.barCommande),
       _sb.from('caisse_config').upsert([{ id: 1, fond: caisseFond }], { onConflict: 'id' })
     ]);
     LS.set('pendingSync', false);
@@ -2875,6 +3429,15 @@ let caisseFond = 0;  // fond de caisse initial
 let depots     = []; // { id, _ts, fournisseur, produit, qty, pu, date, remarque, statut, qtyRendue, dateRetour }
 let chambres   = []; // { id, num, type, tarif, desc, statut, client, dateArrivee, dateDepart, note }
 let sejours    = []; // { id, _ts, chambreId, chambreNum, client, dateArrivee, dateDepart, nuits, tarif, montant, modePaiement, note }
+let barArticles  = []; // { id, name, category, price, stock, unit }
+let barCommandes = []; // { id, _ts, date, items:[], total, modePaiement, note, servedBy }
+
+// ── Bar UI State ──
+let barOrder = []; // { articleId, name, price, qty }
+let barCatFilter = 'Tous';
+let barCmdFilter = 'today';
+let barCurrentView = 'pos';
+let currentCloudUser = null; // Supabase Auth user
 
 // ══ UI STATE ══
 let venteQtys      = {};
@@ -2943,22 +3506,58 @@ function toast(msg, type = 'success') {
 // ════════════════════════════════════════════════════════════════
 //  INIT APP — Supabase en priorité, localStorage en fallback
 // ════════════════════════════════════════════════════════════════
-async function initApp() {
-  // Afficher message de chargement
-  const overlay = document.getElementById('loading-overlay');
-  const subEl = overlay.querySelector('.loading-sub');
-  if (subEl) subEl.textContent = 'Connexion au cloud…';
-
-  // Charger localStorage d'abord (instantané) pour affichage rapide
+function initApp() {
+  // ── 1. Thème + données locales instantanément ──
+  initTheme();
   loadAll();
 
-  let loadedFromCloud = false;
-  try {
-    // Timeout 6s — si Supabase trop lent, on reste en mode local
-    const timeout = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), 6000)
-    );
+  // ── 2. UI de base ──
+  const df = document.getElementById('depot-date');
+  if (df) df.value = new Date().toISOString().split('T')[0];
+  const hd = document.getElementById('header-date');
+  if (hd) hd.textContent = new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
 
+  // ── 3. Masquer l'overlay et démarrer l'app IMMÉDIATEMENT ──
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.add('hidden');
+
+  // ── 4. Login / session check (sans bloquer l'UI) ──
+  _checkSessionAndLogin();
+}
+
+async function _checkSessionAndLogin() {
+  // Essayer de récupérer une session Supabase existante
+  if (_sb) {
+    try {
+      const sessionResult = await Promise.race([
+        _sb.auth.getSession(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000))
+      ]);
+      const session = sessionResult?.data?.session;
+      if (session && session.user) {
+        currentCloudUser = session.user;
+        const role = session.user.user_metadata?.role || 'barman';
+        loginAsCloud(session.user, role);
+        // Charger les données Supabase en arrière-plan après login
+        _loadSupabaseData();
+        return;
+      }
+    } catch(e) {
+      console.warn('[Auth] Session:', e.message);
+    }
+  }
+  // Pas de session → afficher le login
+  initPinSystem();
+}
+
+async function _loadSupabaseData() {
+  if (!_sb) return;
+  const dot = document.getElementById('sync-dot');
+  if (dot) dot.className = 'sync-dot syncing';
+  try {
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), 8000)
+    );
     const fetchAll = Promise.all([
       _sb.from('products').select('*').order('name'),
       _sb.from('mouvements').select('*').order('ts', { ascending: false }),
@@ -2967,52 +3566,42 @@ async function initApp() {
       _sb.from('depots').select('*').order('ts', { ascending: false }),
       _sb.from('chambres').select('*').order('num'),
       _sb.from('sejours').select('*').order('ts', { ascending: false }),
+      _sb.from('bar_articles').select('*').order('name'),
+      _sb.from('bar_commandes').select('*').order('ts', { ascending: false }),
       _sb.from('caisse_config').select('fond').eq('id', 1).single()
     ]);
-
     const [
       { data: dp, error: e1 }, { data: dm, error: e2 }, { data: da, error: e3 },
       { data: dc, error: e4 }, { data: dd, error: e5 }, { data: dch, error: e6 },
-      { data: dsj, error: e7 }, { data: dcc }
+      { data: dsj, error: e7 }, { data: dba, error: e8 }, { data: dbc, error: e9 }, { data: dcc }
     ] = await Promise.race([fetchAll, timeout]);
 
     if (!e1 && !e2 && !e3) {
-      products   = (dp  || []).map(fromDb.product);
-      mouvements = (dm  || []).map(fromDb.mouvement);
-      achats     = (da  || []).map(fromDb.achat);
-      caisse     = (dc  || []).map(fromDb.caisse_op);
-      depots     = (dd  || []).map(fromDb.depot);
-      chambres   = (dch || []).map(fromDb.chambre);
-      sejours    = (dsj || []).map(fromDb.sejour);
-      caisseFond = dcc?.fond || 0;
-      // Mettre à jour le cache local
-      LS.set('products',   products);
-      LS.set('mouvements', mouvements);
-      LS.set('achats',     achats);
-      LS.set('caisse',     caisse);
-      LS.set('caisseFond', caisseFond);
-      LS.set('depots',     depots);
-      LS.set('chambres',   chambres);
-      LS.set('sejours',    sejours);
-      loadedFromCloud = true;
-    } else {
-      console.warn('[initApp] Erreurs Supabase :', { e1, e2, e3, e4, e5, e6, e7 });
+      products     = (dp  || []).map(fromDb.product);
+      mouvements   = (dm  || []).map(fromDb.mouvement);
+      achats       = (da  || []).map(fromDb.achat);
+      caisse       = (dc  || []).map(fromDb.caisse_op);
+      depots       = (dd  || []).map(fromDb.depot);
+      chambres     = (dch || []).map(fromDb.chambre);
+      sejours      = (dsj || []).map(fromDb.sejour);
+      barArticles  = (!e8 && dba) ? dba.map(fromDb.barArticle)  : barArticles;
+      barCommandes = (!e9 && dbc) ? dbc.map(fromDb.barCommande) : barCommandes;
+      caisseFond   = dcc?.fond || 0;
+      LS.set('products', products); LS.set('mouvements', mouvements);
+      LS.set('achats', achats); LS.set('caisse', caisse);
+      LS.set('caisseFond', caisseFond); LS.set('depots', depots);
+      LS.set('chambres', chambres); LS.set('sejours', sejours);
+      LS.set('barArticles', barArticles); LS.set('barCommandes', barCommandes);
+      LS.set('pendingSync', false);
+      if (dot) dot.className = 'sync-dot';
+      // Rafraîchir l\'onglet actif
+      if (typeof currentTab !== 'undefined') switchTab(currentTab);
+      console.info('[Supabase] Données chargées ✓');
     }
   } catch(e) {
-    console.warn('[initApp] Supabase:', e.message === 'timeout' ? 'timeout 6s' : e);
+    console.warn('[Supabase] Chargement:', e.message);
+    if (dot) dot.className = 'sync-dot offline';
   }
-
-  if (!loadedFromCloud && (products.length || mouvements.length)) {
-    // localStorage avait des données — on continue silencieusement
-    console.info('[initApp] Mode cache local');
-  }
-
-  const df = document.getElementById('depot-date');
-  if (df) df.value = new Date().toISOString().split('T')[0];
-  overlay.classList.add('hidden');
-  document.getElementById('header-date').textContent =
-    new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
-  initPinSystem();
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -3032,7 +3621,7 @@ function switchTab(n) {
   const fab    = document.getElementById('fab');
   const fabMag = document.getElementById('fab-mag');
   fab.style.display    = (n === 1 && fab.dataset.roleRestricted !== '1') ? 'flex' : 'none';
-  fabMag.style.display = n === 4 ? 'flex' : 'none';
+  fabMag.style.display = (n === 4) ? 'flex' : 'none';
   currentTab = n;
   if (n === 0) renderHome();
   if (n === 1) { buildCatFilters(); renderStock(); }
@@ -3044,6 +3633,7 @@ function switchTab(n) {
   if (n === 7) renderCaisse();
   if (n === 8) renderDepots();
   if (n === 9) renderChambres();
+  if (n === 10) renderBar();
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -4054,6 +4644,486 @@ function closeDrawer() {
 // Fermer le drawer avec la touche Escape
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
+
+
+// ════════════════════════════════════════════════════════════════
+//  THÈME SOMBRE / CLAIR — Toggle
+// ════════════════════════════════════════════════════════════════
+function initTheme() {
+  const saved = LS.get('theme', 'light');
+  applyTheme(saved);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  LS.set('theme', theme);
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  // Update meta theme-color
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = theme === 'dark' ? '#0c0e1a' : '#1a237e';
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SUPABASE AUTH — Multi-utilisateurs
+// ════════════════════════════════════════════════════════════════
+
+function showAuthTab(tab) {
+  const cloudPanel = document.getElementById('auth-cloud-panel');
+  const pinPanel   = document.getElementById('auth-pin-panel');
+  const cloudBtn   = document.getElementById('auth-tab-cloud');
+  const pinBtn     = document.getElementById('auth-tab-pin');
+  if (tab === 'cloud') {
+    cloudPanel.style.display = '';
+    pinPanel.style.display   = 'none';
+    cloudBtn.className = 'auth-tab-btn active';
+    pinBtn.className   = 'auth-tab-btn inactive';
+  } else {
+    cloudPanel.style.display = 'none';
+    pinPanel.style.display   = '';
+    cloudBtn.className = 'auth-tab-btn inactive';
+    pinBtn.className   = 'auth-tab-btn active';
+    showRoleSelection();
+  }
+}
+
+async function loginWithSupabase() {
+  const email    = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btnEl    = document.getElementById('auth-submit-btn');
+  errEl.textContent = '';
+  if (!email || !password) { errEl.textContent = 'Email et mot de passe requis'; return; }
+  btnEl.disabled = true;
+  btnEl.textContent = 'Connexion…';
+  try {
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    currentCloudUser = data.user;
+    const role = data.user.user_metadata?.role || 'barman';
+    // Try to fetch profile
+    try {
+      const { data: profile } = await _sb.from('profiles').select('role,full_name').eq('id', data.user.id).single();
+      if (profile) loginAsCloud(data.user, profile.role || role, profile.full_name);
+      else          loginAsCloud(data.user, role);
+    } catch(_) {
+      loginAsCloud(data.user, role);
+    }
+  } catch(err) {
+    errEl.textContent = err.message === 'Invalid login credentials'
+      ? 'Email ou mot de passe incorrect'
+      : err.message || 'Erreur de connexion';
+    btnEl.disabled = false;
+    btnEl.textContent = 'Se connecter →';
+  }
+}
+
+function loginAsCloud(user, role, fullName) {
+  currentCloudUser = user;
+  currentRole      = role;
+  document.getElementById('pin-overlay').classList.add('hidden');
+  const name  = fullName || user.email?.split('@')[0] || 'Utilisateur';
+  const greet = `Bonjour, ${name} 👋`;
+  const roleLabels = { admin:'Admin 👑', manager:'Manager 🏨', barman:'Barman 🍺', receptionniste:'Réception 🛏️' };
+  document.getElementById('greeting-name').textContent = greet;
+  document.getElementById('greeting-role').textContent = roleLabels[role] || role;
+  const adminBtn = document.getElementById('btn-pin-admin');
+  if (adminBtn) adminBtn.style.display = (role === 'admin' || role === 'manager') ? 'flex' : 'none';
+  applyRoleRestrictions(role);
+  switchTab(0);
+}
+
+async function lockApp() {
+  currentRole = null;
+  currentCloudUser = null;
+  try { await _sb.auth.signOut(); } catch(_) {}
+  document.getElementById('auth-email').value    = '';
+  document.getElementById('auth-password').value = '';
+  document.getElementById('auth-error').textContent = '';
+  document.getElementById('auth-submit-btn').disabled = false;
+  document.getElementById('auth-submit-btn').textContent = 'Se connecter →';
+  document.getElementById('pin-overlay').classList.remove('hidden');
+  showAuthTab('cloud');
+}
+
+function showForgotPassword() {
+  const email = document.getElementById('auth-email').value.trim();
+  if (!email) { document.getElementById('auth-error').textContent = 'Entrez votre email d\'abord'; return; }
+  _sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.href })
+    .then(({ error }) => {
+      if (error) { document.getElementById('auth-error').textContent = error.message; }
+      else { document.getElementById('auth-error').style.color = '#4caf50'; document.getElementById('auth-error').textContent = 'Email de réinitialisation envoyé ✓'; }
+    });
+}
+
+function applyRoleRestrictions(role) {
+  document.querySelectorAll('.btn-reset').forEach(btn => {
+    const restricted = role === 'barman' || role === 'DG';
+    btn.style.opacity = restricted ? '0.4' : '1';
+    btn.style.pointerEvents = restricted ? 'none' : 'auto';
+  });
+  const fab = document.getElementById('fab');
+  if (fab) fab.dataset.roleRestricted = (role === 'barman' || role === 'DG') ? '1' : '0';
+}
+
+// ════════════════════════════════════════════════════════════════
+//  MODULE BAR — Gestion & POS
+// ════════════════════════════════════════════════════════════════
+
+function renderBar() {
+  // KPIs
+  const today = new Date().toDateString();
+  const cmdsToday = barCommandes.filter(c => new Date(c._ts).toDateString() === today);
+  const caToday   = cmdsToday.reduce((s,c) => s + (c.total || 0), 0);
+  const low       = barArticles.filter(a => a.stock < 5).length;
+
+  const el = document.getElementById('bar-ca-today');
+  if (el) el.textContent = fmtGNF(caToday);
+  const kCmd = document.getElementById('bar-kpi-cmds');
+  const kArt = document.getElementById('bar-kpi-articles');
+  const kLow = document.getElementById('bar-kpi-low');
+  if (kCmd) kCmd.textContent = cmdsToday.length;
+  if (kArt) kArt.textContent = barArticles.length;
+  if (kLow) kLow.textContent = low;
+
+  const subDate = document.getElementById('bar-sub-date');
+  if (subDate) subDate.textContent = new Date().toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
+
+  buildBarCatFilters();
+  renderBarPOS();
+  renderBarHistory();
+  renderBarStock();
+}
+
+function setBarView(view, btn) {
+  barCurrentView = view;
+  document.querySelectorAll('#bar-view-filters .cat-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('bar-view-pos').style.display     = view === 'pos'     ? '' : 'none';
+  document.getElementById('bar-view-history').style.display = view === 'history' ? '' : 'none';
+  document.getElementById('bar-view-stock').style.display   = view === 'stock'   ? '' : 'none';
+}
+
+// ── POS ──
+function buildBarCatFilters() {
+  const cats = ['Tous', ...[...new Set(barArticles.map(a => a.category).filter(Boolean))].sort()];
+  const el = document.getElementById('bar-cat-filters');
+  if (!el) return;
+  el.innerHTML = cats.map(c =>
+    `<button class="cat-pill ${c === barCatFilter ? 'active' : ''}" onclick="setBarCatFilter('${esc(c)}')">${esc(c)}</button>`
+  ).join('');
+}
+
+function setBarCatFilter(cat) {
+  barCatFilter = cat;
+  buildBarCatFilters();
+  renderBarPOS();
+}
+
+function renderBarPOS() {
+  const grid = document.getElementById('bar-article-grid');
+  if (!grid) return;
+  let list = barArticles;
+  if (barCatFilter !== 'Tous') list = list.filter(a => a.category === barCatFilter);
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty" style="grid-column:span 2;">📭 Aucun article ${barCatFilter !== 'Tous' ? 'dans cette catégorie' : '— ajoutez-en dans Gestion'}</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(a => {
+    const inOrder = barOrder.find(o => o.articleId === a.id);
+    const qty = inOrder ? inOrder.qty : 0;
+    const low = a.stock < 5;
+    return `<div class="bar-article-card ${low ? 'low-bar' : ''} ${inOrder ? 'in-order' : ''}" onclick="addToBarOrder('${a.id}')">
+      ${qty > 0 ? `<div class="bar-article-badge">${qty}</div>` : ''}
+      <div class="bar-article-name">${esc(a.name)}</div>
+      <div class="bar-article-cat">${esc(a.category)}</div>
+      <div class="bar-article-price">${fmtGNF(a.price)}</div>
+      <div class="bar-article-stock">${a.stock} ${esc(a.unit)} en stock</div>
+    </div>`;
+  }).join('');
+}
+
+function addToBarOrder(articleId) {
+  const article = barArticles.find(a => a.id === articleId);
+  if (!article) return;
+  const existing = barOrder.find(o => o.articleId === articleId);
+  if (existing) {
+    existing.qty++;
+  } else {
+    barOrder.push({ articleId, name: article.name, price: article.price, qty: 1 });
+  }
+  renderBarOrderPanel();
+  renderBarPOS();
+}
+
+function changeBarOrderQty(articleId, delta) {
+  const idx = barOrder.findIndex(o => o.articleId === articleId);
+  if (idx === -1) return;
+  barOrder[idx].qty += delta;
+  if (barOrder[idx].qty <= 0) barOrder.splice(idx, 1);
+  renderBarOrderPanel();
+  renderBarPOS();
+}
+
+function clearBarOrder() {
+  barOrder = [];
+  renderBarOrderPanel();
+  renderBarPOS();
+}
+
+function renderBarOrderPanel() {
+  const itemsEl  = document.getElementById('bar-order-items');
+  const footerEl = document.getElementById('bar-order-footer');
+  if (!itemsEl) return;
+  if (!barOrder.length) {
+    itemsEl.innerHTML  = '<div class="bar-order-empty">Sélectionnez des articles ci-dessous</div>';
+    if (footerEl) footerEl.style.display = 'none';
+    return;
+  }
+  const total = barOrder.reduce((s, o) => s + o.price * o.qty, 0);
+  itemsEl.innerHTML = barOrder.map(o => `
+    <div class="bar-order-item">
+      <div class="bar-order-item-name">${esc(o.name)}</div>
+      <div class="bar-order-qty-ctrl">
+        <button class="bar-qty-btn" onclick="changeBarOrderQty('${o.articleId}',-1)">−</button>
+        <div class="bar-qty-num">${o.qty}</div>
+        <button class="bar-qty-btn" onclick="changeBarOrderQty('${o.articleId}',1)">+</button>
+      </div>
+      <div class="bar-order-item-subtotal">${fmtGNF(o.price * o.qty)}</div>
+    </div>`).join('');
+  if (footerEl) {
+    footerEl.style.display = '';
+    document.getElementById('bar-order-total').textContent = fmtGNF(total);
+  }
+}
+
+function confirmBarOrder() {
+  if (!barOrder.length) return;
+  const mode  = document.getElementById('bar-cmd-paiement')?.value || 'especes';
+  const total = barOrder.reduce((s, o) => s + o.price * o.qty, 0);
+  const items = barOrder.map(o => ({ articleId: o.articleId, name: o.name, price: o.price, qty: o.qty, subtotal: o.price * o.qty }));
+
+  // Décrémenter le stock
+  items.forEach(item => {
+    const art = barArticles.find(a => a.id === item.articleId);
+    if (art) art.stock = Math.max(0, art.stock - item.qty);
+  });
+
+  const cmd = {
+    id: genId(), _ts: Date.now(), date: fmtShort(),
+    items, total, modePaiement: mode,
+    note: null,
+    servedBy: currentCloudUser?.email || currentRole || 'Inconnu'
+  };
+  barCommandes.unshift(cmd);
+
+  // Enregistrer en caisse si paiement immédiat
+  if (mode !== 'credit' && total > 0) {
+    const itemsLabel = items.map(i => `${i.name}×${i.qty}`).join(', ');
+    caisse.push({
+      id: genId(), _ts: Date.now(), date: fmtShort(),
+      type: 'entree', montant: total,
+      motif: `Bar: ${itemsLabel}`,
+      source: 'bar'
+    });
+  }
+
+  saveAll();
+  barOrder = [];
+  renderBarOrderPanel();
+  renderBar();
+  toast(`✓ Commande bar — ${fmtGNF(total)}`, 'success');
+}
+
+// ── History ──
+function setBarCmdFilter(f, btn) {
+  barCmdFilter = f;
+  document.querySelectorAll('#bar-view-history .cat-filters .cat-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderBarHistory();
+}
+
+function renderBarHistory() {
+  const list = document.getElementById('bar-cmd-list');
+  if (!list) return;
+  const today = new Date().toDateString();
+  let cmds = [...barCommandes].sort((a,b) => b._ts - a._ts);
+  if (barCmdFilter === 'today') cmds = cmds.filter(c => new Date(c._ts).toDateString() === today);
+  if (barCmdFilter === 'week')  cmds = cmds.filter(c => isThisWeek(c));
+  if (!cmds.length) {
+    list.innerHTML = '<div class="empty">Aucune commande enregistrée</div>';
+    return;
+  }
+  list.innerHTML = cmds.map(c => {
+    const modeIcon = { especes:'💵', mobile:'📱', credit:'📋' }[c.modePaiement] || '💵';
+    const itemsText = (c.items || []).map(i => `${i.name} ×${i.qty}`).join(' · ');
+    return `<div class="bar-cmd-item">
+      <div class="bar-cmd-icon">🍺</div>
+      <div class="bar-cmd-body">
+        <div class="bar-cmd-items-text">${esc(itemsText)}</div>
+        <div class="bar-cmd-meta">${c.date || '—'} · ${modeIcon} ${c.modePaiement || '—'} · ${esc(c.servedBy || '—')}</div>
+      </div>
+      <div class="bar-cmd-total">${fmtGNF(c.total)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Stock/Articles management ──
+function renderBarStock() {
+  const list = document.getElementById('bar-stock-list');
+  if (!list) return;
+  if (!barArticles.length) {
+    list.innerHTML = '<div class="empty">Aucun article — utilisez le formulaire ci-dessous</div>';
+    return;
+  }
+  list.innerHTML = barArticles.map(a => {
+    const low = a.stock < 5;
+    return `<div class="mag-card ${low ? 'low-mag' : ''}">
+      <div class="mag-top">
+        <div>
+          <div class="mag-name">${esc(a.name)}</div>
+          <div class="mag-cat">${esc(a.category)} · ${esc(a.unit)}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'DM Sans',sans-serif;font-size:22px;font-weight:900;color:${low ? 'var(--gold-text)' : 'var(--blue)'};">${a.stock}</div>
+          <div style="font-size:11px;color:var(--text-muted);">en stock</div>
+          <div style="font-size:13px;font-weight:800;color:var(--green);margin-top:2px;">${fmtGNF(a.price)}</div>
+        </div>
+      </div>
+      <div class="mag-actions">
+        <button class="btn-transfer" onclick="openBarArticleEdit('${a.id}')">✏️ Modifier</button>
+        <button class="btn-mag-add" onclick="addBarStock('${a.id}')" title="Ajouter stock">+</button>
+        <button class="btn-mag-add" onclick="deleteBarArticle('${a.id}')" title="Supprimer" style="background:var(--red-light);border-color:#ef9a9a;color:var(--red);">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function saveBarArticle() {
+  const name   = document.getElementById('bar-art-name').value.trim();
+  const cat    = document.getElementById('bar-art-cat').value;
+  const price  = parseFloat(document.getElementById('bar-art-price').value) || 0;
+  const stock  = parseInt(document.getElementById('bar-art-stock').value)   || 0;
+  const unit   = document.getElementById('bar-art-unit').value.trim() || 'bouteille';
+  const editId = document.getElementById('bar-art-edit-id').value;
+  if (!name)  { toast('Nom de l\'article requis', 'error'); return; }
+  if (!price) { toast('Prix requis', 'error'); return; }
+  if (editId) {
+    const idx = barArticles.findIndex(a => a.id === editId);
+    if (idx !== -1) { barArticles[idx] = { ...barArticles[idx], name, category: cat, price, stock, unit }; }
+    toast('Article modifié ✓', 'success');
+  } else {
+    barArticles.push({ id: genId(), name, category: cat, price, stock, unit });
+    toast(`${name} ajouté ✓`, 'success');
+  }
+  saveAll();
+  cancelBarArticleEdit();
+  renderBar();
+}
+
+function cancelBarArticleEdit() {
+  document.getElementById('bar-art-edit-id').value = '';
+  document.getElementById('bar-art-name').value    = '';
+  document.getElementById('bar-art-price').value   = '';
+  document.getElementById('bar-art-stock').value   = '';
+  document.getElementById('bar-art-unit').value    = '';
+  document.getElementById('bar-art-cat').value     = 'Bières';
+  document.getElementById('bar-art-form-title').innerHTML = '✚ Nouvel article';
+}
+
+function openBarArticleEdit(id) {
+  const a = barArticles.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('bar-art-edit-id').value = a.id;
+  document.getElementById('bar-art-name').value    = a.name;
+  document.getElementById('bar-art-cat').value     = a.category;
+  document.getElementById('bar-art-price').value   = a.price;
+  document.getElementById('bar-art-stock').value   = a.stock;
+  document.getElementById('bar-art-unit').value    = a.unit;
+  document.getElementById('bar-art-form-title').innerHTML = '✏️ Modifier l\'article';
+  setBarView('stock');
+  document.getElementById('bar-art-form').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function addBarStock(id) {
+  const qty = parseInt(prompt('Quantité à ajouter au stock :') || '0');
+  if (!qty || qty < 1) return;
+  const art = barArticles.find(a => a.id === id);
+  if (art) { art.stock += qty; saveAll(); renderBar(); toast(`+${qty} ${art.unit} ajouté(s) ✓`); }
+}
+
+function deleteBarArticle(id) {
+  if (!confirm('Supprimer cet article du bar ?')) return;
+  barArticles = barArticles.filter(a => a.id !== id);
+  saveAll(); renderBar(); toast('Article supprimé', 'success');
+}
+
+function exportBarPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'mm', format:'a4' });
+  const today = new Date().toLocaleDateString('fr-FR');
+  doc.setFontSize(16); doc.setTextColor(26, 35, 126);
+  doc.text('MODULE BAR — Motel Destin de Léro', 14, 20);
+  doc.setFontSize(10); doc.setTextColor(100);
+  doc.text('Exporté le ' + today, 14, 28);
+
+  // Articles
+  doc.autoTable({
+    startY: 34,
+    head: [['Article','Catégorie','Prix (GNF)','Stock','Unité']],
+    body: barArticles.map(a => [a.name, a.category, fmtNum(a.price), String(a.stock), a.unit]),
+    headStyles: { fillColor: [26,35,126], textColor: 255, fontSize: 9 },
+    bodyStyles: { fontSize: 8 }, alternateRowStyles: { fillColor: [232,234,246] },
+    margin: { left:14, right:14 }
+  });
+
+  // Commandes du jour
+  const today2 = new Date().toDateString();
+  const cmdsToday = barCommandes.filter(c => new Date(c._ts).toDateString() === today2);
+  if (cmdsToday.length) {
+    doc.addPage();
+    doc.setFontSize(13); doc.setTextColor(26,35,126);
+    doc.text('Commandes du jour', 14, 20);
+    const rows = [];
+    cmdsToday.forEach(c => {
+      (c.items || []).forEach(item => {
+        rows.push([c.date||'', item.name, String(item.qty), fmtNum(item.subtotal), c.modePaiement, c.servedBy||'—']);
+      });
+    });
+    doc.autoTable({
+      startY: 28,
+      head: [['Heure','Article','Qté','Montant (GNF)','Paiement','Servi par']],
+      body: rows,
+      headStyles: { fillColor: [26,35,126], textColor: 255, fontSize: 9 },
+      bodyStyles: { fontSize: 8 }, alternateRowStyles: { fillColor: [232,234,246] },
+      margin: { left:14, right:14 }
+    });
+  }
+  doc.save('bar_motel_destin_' + today.replace(/\//g,'-') + '.pdf');
+  toast('PDF Bar généré ✓', 'success');
+}
+
+function exportBarCSV() {
+  let csv = 'Article;Catégorie;Prix (GNF);Stock;Unité\n';
+  barArticles.forEach(a => {
+    csv += `"${a.name}";"${a.category}";${a.price};${a.stock};"${a.unit}"\n`;
+  });
+  csv += '\nCOMMANDES\nHeure;Articles;Total (GNF);Paiement;Servi par\n';
+  barCommandes.forEach(c => {
+    const items = (c.items||[]).map(i => `${i.name}×${i.qty}`).join(' | ');
+    csv += `"${c.date||''}";"${items}";${c.total||0};"${c.modePaiement||''}";"${c.servedBy||''}"\n`;
+  });
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const a = Object.assign(document.createElement('a'), { href:URL.createObjectURL(blob), download:'bar_export_'+new Date().toLocaleDateString('fr-FR').replace(/\//g,'-')+'.csv' });
+  a.click(); URL.revokeObjectURL(a.href);
+  toast('CSV Bar exporté ✓', 'success');
+}
+
 // ════════════════════════════════════════════════════════════════
 //  SYSTÈME PIN MULTI-RÔLES — localStorage
 // ════════════════════════════════════════════════════════════════
@@ -4139,25 +5209,15 @@ function checkPin() {
 function loginAs(role) {
   currentRole = role;
   document.getElementById('pin-overlay').classList.add('hidden');
-  document.getElementById('greeting-name').textContent   = ROLES[role].greet;
-  document.getElementById('greeting-role').style.color   = ROLES[role].color;
+  document.getElementById('greeting-name').textContent = ROLES[role]?.greet || `Bonjour ${role} 👋`;
+  document.getElementById('greeting-role').textContent = ROLES[role]?.label || role;
+  document.getElementById('greeting-role').style.color = ROLES[role]?.color || 'var(--gold-light)';
   const adminBtn = document.getElementById('btn-pin-admin');
   if (adminBtn) adminBtn.style.display = role === 'admin' ? 'flex' : 'none';
   applyRoleRestrictions(role);
   switchTab(0);
 }
-function lockApp() {
-  currentRole = null;
-  document.getElementById('pin-overlay').classList.remove('hidden');
-  showRoleSelection();
-}
-function applyRoleRestrictions(role) {
-  document.querySelectorAll('.btn-reset').forEach(btn => {
-    btn.style.opacity = role === 'DG' ? '0.4' : '1';
-    btn.style.pointerEvents = role === 'DG' ? 'none' : 'auto';
-  });
-  document.getElementById('fab').dataset.roleRestricted = (role === 'DG') ? '1' : '0';
-}
+// lockApp() et applyRoleRestrictions() définis dans la section Auth Supabase ci-dessus
 function openPinSettings() {
   if (currentRole !== 'admin') { toast('Réservé à l\'Admin', 'error'); return; }
   const pins = loadPins();
@@ -4309,11 +5369,11 @@ function setCaisseFilter(f, btn) {
 //  MODAL RAPPORT — GÉNÉRATION
 // ════════════════════════════════════════════════════════════════
 let rapportType    = 'today';
-let rapportIncludes = { resume:true, ventes:true, recap:true, stock:true, achats:true, caisse:true };
+let rapportIncludes = { resume:true, ventes:true, recap:true, stock:true, achats:true, caisse:true, bar:true, hebergement:true };
 
 function openRapportModal() {
   rapportType = 'today';
-  rapportIncludes = { resume:true, ventes:true, recap:true, stock:true, achats:true, caisse:true };
+  rapportIncludes = { resume:true, ventes:true, recap:true, stock:true, achats:true, caisse:true, bar:true, hebergement:true };
   // Reset UI
   ['today','week','month','custom'].forEach(t => document.getElementById(`rtype-${t}`).classList.remove('active'));
   document.getElementById('rtype-today').classList.add('active');
@@ -4432,8 +5492,8 @@ function generateRapportPDF() {
   doc.setFontSize(10); doc.setFont('helvetica','normal');
   doc.text('Rapport — '+periodLabel,14,24);
   doc.setFontSize(8);
-  doc.text('Genere le '+todayStr+' · Motel Destin App v9',14,32);
-  doc.text('Sections : '+Object.entries(rapportIncludes).filter(([,v])=>v).map(([k])=>({resume:'Résumé',ventes:'Ventes',recap:'Récap',stock:'Stock',achats:'Achats',caisse:'Caisse'}[k])).join(', '),196,32,{align:'right'});
+  doc.text('Genere le '+todayStr+' · Motel Destin App v11',14,32);
+  doc.text('Sections : '+Object.entries(rapportIncludes).filter(([,v])=>v).map(([k])=>({resume:'Résumé',ventes:'Ventes',recap:'Récap',stock:'Stock',achats:'Achats',caisse:'Caisse',bar:'Bar',hebergement:'Héberg.'}[k]||k)).join(', '),196,32,{align:'right'});
 
   let y = 48;
 
@@ -4533,6 +5593,67 @@ function generateRapportPDF() {
       y=doc.lastAutoTable.finalY+10;
     } else {
       doc.setFontSize(9);doc.setFont('helvetica','normal');doc.setTextColor(120,120,140);doc.text('Aucune operation de caisse sur cette periode.',20,y+8);y+=18;
+    }
+  }
+
+
+  // ── BAR ──
+  if (rapportIncludes.bar && barCommandes.length) {
+    const barF = barCommandes.filter(c => filt(c));
+    if (barF.length) {
+      if(y>210){doc.addPage();y=20;}
+      const totalBarCA = barF.reduce((s,c)=>s+(c.total||0),0);
+      doc.setTextColor(...DARK);doc.setFontSize(11);doc.setFont('helvetica','bold');
+      doc.text('BAR & BOISSONS — '+fmtNum(totalBarCA)+' GNF',14,y);y+=4;
+      const barRows=[];
+      const byBarArt={};
+      barF.forEach(c=>{
+        (c.items||[]).forEach(item=>{
+          if(!byBarArt[item.name])byBarArt[item.name]={qty:0,total:0};
+          byBarArt[item.name].qty+=item.qty;
+          byBarArt[item.name].total+=item.subtotal||0;
+        });
+      });
+      Object.entries(byBarArt).sort((a,b)=>b[1].total-a[1].total).forEach(([name,d])=>{
+        const avg=d.qty>0?Math.round(d.total/d.qty):0;
+        barRows.push([name,d.qty.toString(),fmtNum(avg)+' GNF',fmtNum(d.total)+' GNF']);
+      });
+      doc.autoTable({startY:y,head:[['Article','Qté vendue','Prix moy.','CA (GNF)']],
+        body:barRows.length?barRows:[['Aucune commande bar','','','']],
+        foot:[['TOTAL',Object.values(byBarArt).reduce((s,d)=>s+d.qty,0).toString(),'',fmtNum(totalBarCA)+' GNF']],
+        styles:{fontSize:9,cellPadding:3,font:'helvetica'},
+        headStyles:{fillColor:[26,35,126],textColor:WHITE,fontStyle:'bold'},
+        footStyles:{fillColor:[201,168,76],textColor:[13,31,110],fontStyle:'bold'},
+        alternateRowStyles:{fillColor:[245,247,255]},
+        margin:{left:14,right:14},theme:'grid'});
+      y=doc.lastAutoTable.finalY+10;
+    }
+  }
+
+  // ── HÉBERGEMENT ──
+  if (rapportIncludes.hebergement && sejours.length) {
+    const sejourF = sejours.filter(s => filt(s));
+    if (sejourF.length) {
+      if(y>210){doc.addPage();y=20;}
+      const totalHeberg=sejourF.reduce((s,sj)=>s+(sj.montant||0),0);
+      doc.setTextColor(...DARK);doc.setFontSize(11);doc.setFont('helvetica','bold');
+      doc.text('HÉBERGEMENT — '+fmtNum(totalHeberg)+' GNF',14,y);y+=4;
+      doc.autoTable({
+        startY:y,
+        head:[['Client','Chambre','Arrivée','Départ','Nuits','Paiement','Montant (GNF)']],
+        body:sejourF.map(sj=>[
+          sj.client||'—','CH '+(sj.chambreNum||'—'),
+          sj.dateArrivee||'—',sj.dateDepart||'—',
+          (sj.nuits||0).toString(),sj.modePaiement||'—',
+          fmtNum(sj.montant||0)+' GNF'
+        ]),
+        foot:[['TOTAL','','','',sejourF.reduce((s,sj)=>s+(sj.nuits||0),0)+' nuits','',fmtNum(totalHeberg)+' GNF']],
+        styles:{fontSize:8,cellPadding:2.5,font:'helvetica'},
+        headStyles:{fillColor:[13,31,110],textColor:WHITE,fontStyle:'bold'},
+        footStyles:{fillColor:[201,168,76],textColor:[13,31,110],fontStyle:'bold'},
+        alternateRowStyles:{fillColor:[245,247,255]},
+        margin:{left:14,right:14},theme:'grid'});
+      y=doc.lastAutoTable.finalY+10;
     }
   }
 
@@ -5160,6 +6281,19 @@ function confirmCheckout() {
 }
 
 window.addEventListener('load', initApp);
+
+// ── Failsafe : si l'overlay reste après 8s, le forcer à disparaître ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const ov = document.getElementById('loading-overlay');
+    if (ov && !ov.classList.contains('hidden')) {
+      console.warn('[Failsafe] Overlay forcé à se fermer après 8s');
+      ov.classList.add('hidden');
+      if (typeof initPinSystem === 'function') initPinSystem();
+    }
+  }, 8000);
+});
+
 </script>
 
 
@@ -5258,12 +6392,12 @@ window.addEventListener('appinstalled', () => {
   if (banner) banner.classList.remove('show');
   deferredInstallPrompt = null;
   console.log('[PWA] Application installée avec succès');
-  toast('✅ App installée — accessible depuis votre écran d'accueil', 'success');
+  toast('✅ App installée — accessible depuis votre écran d\'accueil', 'success');
 });
 
-// ── Détecter si lancé depuis l'écran d'accueil ──
+// ── Détecter si lancé depuis l\'écran d\'accueil ──
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-  console.log('[PWA] Lancé depuis l'écran d'accueil');
+  console.log("[PWA] Lancé depuis l\'écran d\'accueil");
   document.title = 'Motel Destin';
 }
 </script>
