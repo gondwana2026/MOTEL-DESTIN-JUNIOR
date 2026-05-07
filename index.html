@@ -2089,6 +2089,19 @@
   </div>
 </div>
 
+<!-- ══ OFFLINE BANNER ══ -->
+<div class="offline-banner" id="offline-banner">📵 Hors ligne — les données sont sauvegardées localement</div>
+
+<!-- ══ INSTALL BANNER ══ -->
+<div class="install-banner" id="install-banner">
+  <div class="install-banner-text">
+    <div class="install-banner-title">Installer l'application</div>
+    <div class="install-banner-sub">Accès rapide depuis votre écran d'accueil</div>
+  </div>
+  <button class="install-btn" onclick="installPWA()">Installer</button>
+  <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+</div>
+
 <div class="app">
 
   <!-- Header -->
@@ -2201,7 +2214,7 @@
         <div class="stat-card">
           <div class="stat-label">Benefice</div>
           <div class="stat-val" id="home-benefice" style="font-size:18px;">—</div>
-          <div class="stat-sub" id="home-benefice-sub">CA - Depenses</div>
+          <div class="stat-sub" id="home-benefice-sub">Ventes − Sorties caisse</div>
         </div>
         <div class="stat-card" onclick="switchTab(7)" style="cursor:pointer;border-color:var(--green);border-width:2px;">
           <div class="stat-label" style="color:var(--green);">Caisse</div>
@@ -2333,11 +2346,11 @@
 
     <!-- ══ TAB 6 : ACHATS ══ -->
     <div id="tab-6" class="tab-pane">
-      <div class="page-title">Achats &amp; Dépenses</div>
+      <div class="page-title">Achats</div>
 
       <div class="achat-banner">
         <div>
-          <div class="ca-label">Dépenses totales</div>
+          <div class="ca-label">Total achats du mois</div>
           <div class="ca-val" id="achat-mois-val">0 GNF</div>
           <div class="ca-sub" id="achat-mois-sub">ce mois</div>
         </div>
@@ -2345,9 +2358,9 @@
       </div>
 
       <div class="achat-stat-grid">
-        <div class="achat-stat-box"><div class="achat-stat-label">Aujourd'hui</div><div class="achat-stat-val" id="achat-stat-jour" style="color:var(--blue)">0</div></div>
-        <div class="achat-stat-box"><div class="achat-stat-label">Ce mois</div><div class="achat-stat-val" id="achat-stat-mois" style="color:var(--blue3)">0</div></div>
-        <div class="achat-stat-box"><div class="achat-stat-label">Fournisseurs</div><div class="achat-stat-val" id="achat-stat-fournisseurs" style="color:var(--green)">0</div></div>
+        <div class="achat-stat-box"><div class="achat-stat-label">Aujourd'hui</div><div class="achat-stat-val" id="achat-stat-jour" style="color:var(--blue)">0</div><div style="font-size:9px;color:var(--text-muted);font-weight:700;margin-top:2px;">GNF</div></div>
+        <div class="achat-stat-box"><div class="achat-stat-label">Ce mois</div><div class="achat-stat-val" id="achat-stat-mois" style="color:var(--blue3)">0</div><div style="font-size:9px;color:var(--text-muted);font-weight:700;margin-top:2px;">GNF</div></div>
+        <div class="achat-stat-box"><div class="achat-stat-label">Fournisseurs</div><div class="achat-stat-val" id="achat-stat-fournisseurs" style="color:var(--green)">0</div><div style="font-size:9px;color:var(--text-muted);font-weight:700;margin-top:2px;">distincts</div></div>
       </div>
 
       <!-- Formulaire achat -->
@@ -3644,8 +3657,12 @@ function renderHome() {
   const ventesToday = mouvements.filter(m => m.type === 'sortie' && isToday(m)).reduce((s,m) => s + m.qty, 0);
   const ca = getCaToday(), ops = getVentesToday().length;
 
-  const depenses = achats.filter(a => isToday(a)).reduce((s,a) => s + (a.totalCost||0), 0);
-  const benefice = ca - depenses;
+  const depenses     = achats.filter(a => isToday(a)).reduce((s,a) => s + (a.totalCost||0), 0);
+  // Bénéfice = Ventes totales − Sorties de caisse (achats non comptés comme dépense)
+  const totalVentes  = mouvements.filter(m => m.type === 'sortie').reduce((s,m) => s + (m.ca||0), 0);
+  const totalAchats  = achats.reduce((s,a) => s + (a.totalCost||0), 0);
+  const totalSorties = caisse.filter(o => o.type === 'sortie').reduce((s,o) => s + (o.montant||0), 0);
+  const benefice     = totalVentes - totalSorties;
 
   document.getElementById('home-total').textContent   = products.length;
   document.getElementById('home-alerts').textContent  = alerts.length;
@@ -3659,10 +3676,10 @@ function renderHome() {
 
   const benEl  = document.getElementById('home-benefice');
   const benSub = document.getElementById('home-benefice-sub');
-  if (ca === 0 && depenses === 0) {
+  if (ca === 0 && totalSorties === 0) {
     benEl.textContent  = '—';
     benEl.style.color  = 'var(--text-muted)';
-    benSub.textContent = 'CA − Dépenses';
+    benSub.textContent = 'Ventes − Sorties caisse';
   } else {
     benEl.textContent  = (benefice >= 0 ? '' : '−') + fmtGNF(Math.abs(benefice));
     benEl.style.color  = benefice >= 0 ? 'var(--green)' : 'var(--red)';
@@ -4093,14 +4110,29 @@ function renderRecapTable() {
 }
 
 function renderAchats() {
-  const depTot   = achats.reduce((s,a) => s + (a.totalCost||0), 0);
-  const month    = achats.filter(a => isThisMonth(a));
-  const depToday = achats.filter(a => isToday(a)).reduce((s,a) => s + (a.totalCost||0), 0);
+  const month        = achats.filter(a => isThisMonth(a));
+  const today        = achats.filter(a => isToday(a));
+  const depMois      = month.reduce((s,a) => s + (a.totalCost||0), 0);
+  const depToday     = today.reduce((s,a) => s + (a.totalCost||0), 0);
   const fournisseurs = [...new Set(achats.map(a => a.fournisseur).filter(Boolean))];
-  document.getElementById('achat-mois-val').textContent       = depTot > 0 ? fmtGNF(depTot) : '0 GNF';
-  document.getElementById('achat-mois-sub').textContent       = `${month.length} achat${month.length!==1?'s':''} ce mois`;
-  document.getElementById('achat-stat-jour').textContent      = depToday > 0 ? (depToday>=1000000?(depToday/1000000).toFixed(1)+'M':Math.round(depToday/1000)+'K') : '0';
-  document.getElementById('achat-stat-mois').textContent      = month.length;
+
+  // Bannière : dépenses du mois en cours
+  document.getElementById('achat-mois-val').textContent = depMois > 0 ? fmtGNF(depMois) : '0 GNF';
+  document.getElementById('achat-mois-sub').textContent = `${month.length} achat${month.length!==1?'s':''} ce mois`;
+
+  // KPI Aujourd'hui : montant dépensé aujourd'hui (abrégé)
+  document.getElementById('achat-stat-jour').textContent =
+    depToday > 0
+      ? (depToday >= 1000000 ? (depToday/1000000).toFixed(1)+'M' : Math.round(depToday/1000)+'K')
+      : '0';
+
+  // KPI Ce mois : montant total du mois (abrégé)
+  document.getElementById('achat-stat-mois').textContent =
+    depMois > 0
+      ? (depMois >= 1000000 ? (depMois/1000000).toFixed(1)+'M' : Math.round(depMois/1000)+'K')
+      : '0';
+
+  // KPI Fournisseurs : nb fournisseurs uniques
   document.getElementById('achat-stat-fournisseurs').textContent = fournisseurs.length;
   let filtered = achats;
   if (currentAchatFilter === 'today') filtered = achats.filter(a => isToday(a));
@@ -4145,7 +4177,7 @@ function setAchatFilter(f, btn) {
 //  CRUD — PRODUITS (localStorage synchrone)
 // ════════════════════════════════════════════════════════════════
 function quickSell(id, qty) {
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   if (!p) return;
   qty = parseInt(qty) || 1;
   if (p.currentStock < qty) { toast(`Stock insuffisant (${p.currentStock} ${p.unit})`, 'error'); return; }
@@ -4163,7 +4195,7 @@ function quickSell(id, qty) {
 
 function openRestock(id) {
   restockTarget = id;
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   document.getElementById('restock-prod-name').textContent = p ? p.name : '';
   document.getElementById('restock-qty').value = '';
   openModal('modal-restock');
@@ -4171,7 +4203,7 @@ function openRestock(id) {
 function confirmRestock() {
   const qty = parseInt(document.getElementById('restock-qty').value);
   if (!qty || qty < 1) { toast('Entrez une quantité valide', 'error'); return; }
-  const p = products.find(x => x.id === restockTarget);
+  const p = products.find(x => String(x.id) === String(restockTarget));
   if (!p) return;
   p.currentStock += qty;
   const mouv = { id: genId(), _ts: Date.now(), date: fmtShort(), product: p.name, unit: p.unit, type: 'entree', qty, ca: 0, cost: 0 };
@@ -4185,7 +4217,7 @@ function confirmRestock() {
 
 function openEdit(id) {
   editTarget = id;
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   if (!p) return;
   document.getElementById('edit-name').value  = p.name;
   document.getElementById('edit-unit').value  = p.unit || 'bouteille';
@@ -4206,7 +4238,7 @@ function openEdit(id) {
   openModal('modal-edit');
 }
 function confirmEdit() {
-  const p = products.find(x => x.id === editTarget);
+  const p = products.find(x => String(x.id) === String(editTarget));
   if (!p) return;
   const name = document.getElementById('edit-name').value.trim();
   if (!name) { toast('Nom obligatoire', 'error'); return; }
@@ -4252,7 +4284,7 @@ function addProduct() {
 }
 
 function deleteProduct(id) {
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   if (!p || !confirm(`Supprimer "${p.name}" ?`)) return;
   products = products.filter(x => x.id !== id);
   saveAll();
@@ -4264,7 +4296,7 @@ function deleteProduct(id) {
 //  CRUD — MAGASIN
 // ════════════════════════════════════════════════════════════════
 function openTransfer(id) {
-  const p = products.find(x => x.id === id);
+  const p = products.find(x => String(x.id) === String(id));
   if (!p) return;
   transferTarget = id;
   document.getElementById('transfer-prod-name').textContent  = p.name;
@@ -4277,7 +4309,7 @@ function openTransfer(id) {
 function confirmTransfer() {
   const qty = parseInt(document.getElementById('transfer-qty').value);
   if (!qty || qty < 1) { toast('Entrez une quantité valide', 'error'); return; }
-  const p = products.find(x => x.id === transferTarget);
+  const p = products.find(x => String(x.id) === String(transferTarget));
   if (!p) return;
   if ((p.magasinStock || 0) < qty) { toast(`Magasin insuffisant (${p.magasinStock||0} ${p.unit})`, 'error'); return; }
   p.magasinStock -= qty;
@@ -4763,12 +4795,13 @@ function showForgotPassword() {
 
 function applyRoleRestrictions(role) {
   document.querySelectorAll('.btn-reset').forEach(btn => {
-    const restricted = role === 'barman' || role === 'DG';
+    const restricted = role === 'barman';
     btn.style.opacity = restricted ? '0.4' : '1';
     btn.style.pointerEvents = restricted ? 'none' : 'auto';
   });
   const fab = document.getElementById('fab');
-  if (fab) fab.dataset.roleRestricted = (role === 'barman' || role === 'DG') ? '1' : '0';
+  // Seul le rôle barman ne peut pas ajouter de produits
+  if (fab) fab.dataset.roleRestricted = (role === 'barman') ? '1' : '0';
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -5244,13 +5277,13 @@ function savePinSettings() {
 //  CAISSE
 // ════════════════════════════════════════════════════════════════
 function getCaisseData() {
-  // Entrées = fond + ops entree + CA ventes
-  // Sorties = ops sortie + achats
-  const opsEntrees = caisse.filter(o => o.type === 'entree').reduce((s,o) => s + o.montant, 0);
-  const opsSorties = caisse.filter(o => o.type === 'sortie').reduce((s,o) => s + o.montant, 0);
-  const caVentes   = mouvements.filter(m => m.type === 'sortie').reduce((s,m) => s + (m.ca||0), 0);
-  const totalAchats= achats.reduce((s,a) => s + (a.totalCost||0), 0);
-  const solde      = caisseFond + caVentes + opsEntrees - opsSorties - totalAchats;
+  // Solde = Fond + Ventes + Entrées manuelles − Sorties manuelles − Achats
+  // Si fond = 0 et achats > ventes → solde négatif (normal)
+  const opsEntrees  = caisse.filter(o => o.type === 'entree').reduce((s,o) => s + o.montant, 0);
+  const opsSorties  = caisse.filter(o => o.type === 'sortie').reduce((s,o) => s + o.montant, 0);
+  const caVentes    = mouvements.filter(m => m.type === 'sortie').reduce((s,m) => s + (m.ca||0), 0);
+  const totalAchats = achats.reduce((s,a) => s + (a.totalCost||0), 0);
+  const solde       = caisseFond + caVentes + opsEntrees - opsSorties - totalAchats;
   return { solde, opsEntrees, opsSorties, caVentes, totalAchats };
 }
 
