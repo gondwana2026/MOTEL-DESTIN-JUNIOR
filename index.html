@@ -295,11 +295,16 @@
       color: #C9A84C !important;
     }
     [data-theme="dark"] .modal-field {
-      background: rgba(201,168,76,0.05);
-      border-color: rgba(201,168,76,0.2);
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(201,168,76,0.25);
       color: var(--text-body);
     }
-    [data-theme="dark"] .modal-field:focus { border-color: #C9A84C; }
+    [data-theme="dark"] .modal-field::placeholder { color: rgba(255,255,255,0.3); }
+    [data-theme="dark"] .modal-field:focus {
+      border-color: #C9A84C;
+      background: rgba(201,168,76,0.06);
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.1);
+    }
     [data-theme="dark"] .cat-pill {
       background: rgba(201,168,76,0.08);
       border-color: rgba(201,168,76,0.15);
@@ -1235,39 +1240,65 @@
       font-size: 18px; font-weight: 900; color: var(--blue);
       margin-bottom: 18px;
     }
+    /* ── Formulaires améliorés ── */
     .modal-field {
       width: 100%;
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 16px;
       color: var(--text-body);
       font-family: 'Inter', 'DM Sans', system-ui, sans-serif;
-      font-size: 13px; font-weight: 600;
-      outline: none; margin-bottom: 10px;
-      transition: border-color 0.2s;
+      font-size: 15px; font-weight: 500;
+      outline: none; margin-bottom: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+      min-height: 52px;
     }
-    .modal-field:focus { border-color: var(--blue3); box-shadow: 0 0 0 3px rgba(57,73,171,0.1); }
-    .modal-label { font-size: 10px; font-weight: 800; color: var(--blue); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 5px; }
-    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .modal-field::placeholder { color: var(--text-muted); opacity: 0.7; font-weight: 400; }
+    .modal-field:focus {
+      border-color: var(--blue3);
+      box-shadow: 0 0 0 4px rgba(57,73,171,0.12);
+      background: var(--bg);
+    }
+    select.modal-field {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 42px;
+      cursor: pointer;
+    }
+    .modal-label {
+      font-size: 11px; font-weight: 700; color: var(--blue);
+      letter-spacing: 0.8px; text-transform: uppercase;
+      display: block; margin-bottom: 7px; margin-top: 2px;
+    }
+    .modal-field-group { margin-bottom: 4px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px; }
     .modal-grid .modal-field { margin-bottom: 0; }
-    .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 14px; }
 
     .btn-cancel {
-      flex: 1; padding: 13px; background: var(--bg);
-      border: 1.5px solid var(--border); border-radius: 12px;
+      flex: 1; padding: 16px 12px; background: var(--bg);
+      border: 2px solid var(--border); border-radius: 14px;
       color: var(--text-muted); font-family: 'Inter', 'DM Sans', system-ui, sans-serif;
-      font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+      min-height: 52px;
     }
+    .btn-cancel:hover { border-color: var(--text-muted); color: var(--text-body); }
     .btn-cancel:active { background: var(--blue-light); }
     .btn-primary {
-      flex: 2; padding: 13px;
+      flex: 2; padding: 16px 12px;
       background: linear-gradient(135deg, var(--blue), var(--blue2));
-      border: none; border-radius: 12px; color: var(--white);
+      border: none; border-radius: 14px; color: var(--white);
       font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
-      font-size: 13px; font-weight: 900; cursor: pointer;
-      box-shadow: 0 4px 14px rgba(26,35,126,0.35);
+      font-size: 15px; font-weight: 900; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26,35,126,0.3);
       transition: transform 0.15s, box-shadow 0.15s;
+      min-height: 52px;
+      letter-spacing: 0.3px;
     }
     .btn-primary:hover { box-shadow: 0 6px 20px rgba(26,35,126,0.45); }
     .btn-primary:active { transform: scale(0.97); }
@@ -1686,8 +1717,8 @@
       .modal-box { max-width: 560px; border-radius: 22px; }
       .modal-overlay { align-items: center; }
       .modal-title { font-size: 20px !important; }
-      .modal-label { font-size: 13px !important; }
-      .modal-field { font-size: 15px !important; padding: 14px 16px !important; }
+      .modal-label { font-size: 12px !important; }
+      .modal-field { font-size: 16px !important; padding: 16px 18px !important; min-height: 56px !important; }
       .fab, .fab-mag { bottom: 36px; right: 36px; width: 60px; height: 60px; font-size: 22px; }
       .toast { bottom: 36px; font-size: 14px; padding: 14px 22px; }
       /* KPI banners */
@@ -3662,7 +3693,7 @@ function renderHome() {
   const totalVentes  = mouvements.filter(m => m.type === 'sortie').reduce((s,m) => s + (m.ca||0), 0);
   const totalAchats  = achats.reduce((s,a) => s + (a.totalCost||0), 0);
   const totalSorties = caisse.filter(o => o.type === 'sortie').reduce((s,o) => s + (o.montant||0), 0);
-  const benefice     = totalVentes - totalSorties;
+  const benefice     = totalVentes - totalAchats;
 
   document.getElementById('home-total').textContent   = products.length;
   document.getElementById('home-alerts').textContent  = alerts.length;
@@ -4185,6 +4216,15 @@ function quickSell(id, qty) {
   p.currentStock -= qty;
   const mouv = { id: genId(), _ts: Date.now(), date: fmtShort(), product: p.name, unit: p.unit, type: 'sortie', qty, ca, cost: 0 };
   mouvements.unshift(mouv);
+  // Enregistrer la recette en caisse (évite le double comptage dans getCaisseData)
+  if (ca > 0) {
+    caisse.push({
+      id: genId(), _ts: Date.now(), date: fmtShort(),
+      type: 'entree', montant: ca,
+      motif: `Vente : ${p.name} ×${qty}`,
+      source: 'vente'
+    });
+  }
   saveAll();
   venteQtys[id] = 1;
   toast(`−${qty} ${p.unit} · ${p.name}${ca ? ' · ' + fmtGNF(ca) : ''}`, 'success');
@@ -5277,13 +5317,15 @@ function savePinSettings() {
 //  CAISSE
 // ════════════════════════════════════════════════════════════════
 function getCaisseData() {
-  // Solde = Fond + Ventes + Entrées manuelles − Sorties manuelles − Achats
-  // Si fond = 0 et achats > ventes → solde négatif (normal)
+  // Solde = Fond + Entrées (ventes comptoir + bar + hébergement + manuelles) − Sorties (achats + manuelles)
+  // Les ventes comptoir sont enregistrées dans caisse[] via quickSell → source:'vente'
+  // Les ventes bar sont enregistrées dans caisse[] via confirmBarOrder → source:'bar'
+  // Les recettes hébergement sont enregistrées dans caisse[] via confirmCheckout → source:'hebergement'
   const opsEntrees  = caisse.filter(o => o.type === 'entree').reduce((s,o) => s + o.montant, 0);
   const opsSorties  = caisse.filter(o => o.type === 'sortie').reduce((s,o) => s + o.montant, 0);
   const caVentes    = mouvements.filter(m => m.type === 'sortie').reduce((s,m) => s + (m.ca||0), 0);
   const totalAchats = achats.reduce((s,a) => s + (a.totalCost||0), 0);
-  const solde       = caisseFond + caVentes + opsEntrees - opsSorties - totalAchats;
+  const solde       = caisseFond + opsEntrees - opsSorties;
   return { solde, opsEntrees, opsSorties, caVentes, totalAchats };
 }
 
